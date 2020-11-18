@@ -1,0 +1,58 @@
+
+
+         /\_/\
+     /\  |6 6|  /\
+    /  \ \<">/ /  \
+   / ,__`~)-(~___, \
+  /.',-'`/_/`'-,  '.\
+   ,'    \_\    ',
+  :       \|\     ;
+   ',     /|/    ,'
+     '-,__\W\_,-))
+               ((
+                )
+
+	### python3 Quickstart
+	
+	https://www.w3schools.com/python/
+	https://www.learnpython.org/
+
+	### Resilient SOAR Platform uzerinde 5 adimda basit bir integration islemi nasil gerceklestirilir? 
+
+	use-case: Artifact alanindaki bilgiyi bir ftp sunucuya dosya olarak yukle
+
+	1: Resilient uzerinde gerekli Playbook bilesenlerinin olusturulmasi
+		- Message Destination: uploadfile
+		- Function: uploadfile
+		- Workflow: uploadfile
+		- Rule: 'Upload as file'
+		
+	2: resilient-circuits, resilient-sdk ortaminin hazirlanmasi
+		- pip3 install --upgrade pip
+		- pip3 install resilient-circuits
+		- pip3 install resilient-sdk
+		
+	3: app.config dosyasina resilient erisim bilgilerinin girilmesi
+	4: resilient-sdk komutu ile ornek component kodunun olusturulmasi
+		- resilient-sdk codegen -w uploadfile --rule 'Upload as file' -f uploadfile -m 'uploadfile' -p uploadfile
+	5: kodun duzenlenerek resilient-components uygulamasi uzerinde deploy edilmesi
+	
+	6: fn_components troubleshooting:
+[root@apphost ~]# kubectl get pods --all-namespaces 
+NAMESPACE                              NAME                                                    READY   STATUS    RESTARTS   AGE
+kube-system                            local-path-provisioner-6d59f47c7-wtfmh                  1/1     Running   8          48d
+kube-system                            coredns-8655855d6-g67vg                                 1/1     Running   8          48d
+43709ba1-973b-4a60-8827-9aecffcbd3ab   deployment-operator-774959f484-t79nq                    1/1     Running   15         89d
+14ddac9a-56d3-4650-ae3c-dd5256749a87   deployment-operator-554f5ddcdc-xzzjj                    1/1     Running   11         67d
+43709ba1-973b-4a60-8827-9aecffcbd3ab   db769e0a-f338-4ad6-8132-cb71717855a5-785c9c5cd4-986rp   1/1     Running   13         85d
+43709ba1-973b-4a60-8827-9aecffcbd3ab   deployment-synchronizer-69d84df567-lfnkj                1/1     Running   7          48d
+kube-system                            metrics-server-7566d596c8-qv4b6                         1/1     Running   8          48d
+14ddac9a-56d3-4650-ae3c-dd5256749a87   deployment-synchronizer-7d86bfc56d-9zlnv                1/1     Running   0          58m
+14ddac9a-56d3-4650-ae3c-dd5256749a87   98836dfa-3bff-47d6-8c75-d60549421540-7df9db7766-lwb56   1/1     Running   0          57m
+14ddac9a-56d3-4650-ae3c-dd5256749a87   94489894-0beb-4b84-a67b-a76541425a2a-695fb4cdfb-mm76x   1/1     Running   0          3m24s
+
+
+kubectl exec -n 14ddac9a-56d3-4650-ae3c-dd5256749a87 --stdin --tty 742f5912-5093-487a-ae1c-e042c56f9935-7958d9f774-vfxzm -- /bin/bash
+
+kubectl logs 94489894-0beb-4b84-a67b-a76541425a2a-6d87f78d58-72rpt -n 14ddac9a-56d3-4650-ae3c-dd5256749a87 --follow
+
