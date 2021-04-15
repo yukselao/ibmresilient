@@ -1,0 +1,11 @@
+name= incident.name
+
+incidenttypelist=[]
+if name.find("VPN")!=-1:
+	incidenttypelist.append('VPN')
+if name.find("SQL Injtection")!=-1:
+	incidenttypelist.append('SQL Injection')
+if incidenttypelist==[]:
+	incidenttype.append('Basic Incident')
+
+incident["incident_type_ids"]=incidenttypelist
